@@ -15,7 +15,11 @@ class Mod(Cog, name="Moderation"):  # type: ignore
 
     @commands.command()
     @commands.has_any_role(constants.MOD)
-    async def role(self, ctx: Context, action: str, role: Role, member: Member) -> None:
+    async def role(self,
+                   ctx: Context,
+                   action: str,
+                   role: Role,
+                   member: Member) -> None:
         "Changes roles for a user. Usage ~role [give|take] [role] [member]"
         if action == "give":
             await member.add_roles(role)
@@ -27,7 +31,7 @@ class Mod(Cog, name="Moderation"):  # type: ignore
             await ctx.send(f"Invalid role action {action}")
 
 
-class BotInternal(Cog, name="Bot Internal", command_attrs={'hidden': True}):  # type: ignore
+class BotInternal(Cog, name="Bot Internal", command_attrs={'hidden': True}):
     """Commands that relate to the bot itself."""
     def __init__(self, bot: Bot) -> None:
         self.bot = bot
@@ -36,11 +40,10 @@ class BotInternal(Cog, name="Bot Internal", command_attrs={'hidden': True}):  # 
     async def version(self, ctx: Context) -> None:
         "Gets the bots current version number"
         embed = Embed(
-            title=f"TheresNoBot v{constants.VERSION}",
+            title=f"WM Mod Bot v{constants.VERSION}",
             description=f"I'm currently running version {constants.VERSION}",
             type="rich",
-            url="https://github.com/TheresNoGit/TheresNoDiscordBot",
-            color=constants.DEBUG_COL,
+            url="https://github.com/samtarling/WM-Mod-Bot",
             timestamp=datetime.datetime.utcnow()
         )
         embed.set_footer(text=f"Codename: {constants.VERSION_NAME}")
