@@ -84,7 +84,7 @@ async def on_command_error(ctx: Context,
         await ctx.send("Unknown error.")
 
 
-for cog in (cogs.BotInternal, cogs.Mod):
+for cog in (cogs.BotInternal, cogs.Mod, cogs.EditorInfo):
     bot.add_cog(cog(bot))
 
 

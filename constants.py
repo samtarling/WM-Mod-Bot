@@ -29,3 +29,7 @@ SERVER_OWNER = int(os.getenv('SERVER_ADMIN'))  # type: ignore
 
 # Misc
 BOT_ACTIVITY = typing.cast(str, os.getenv('BOT_ACTIVITY'))  # type: ignore
+
+# Tools
+CA_URL = "https://meta.wikimedia.org/wiki/Special:CentralAuth/"
+XTOOLS_URL = "https://xtools.wmflabs.org/"
