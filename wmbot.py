@@ -21,14 +21,17 @@ bot = Bot(command_prefix='~',
 
 
 async def checkMessage(message: Message) -> bool:
-    """Check a message against the regexes"""
+    """Check a message for non-command functions"""
     if await utils.isDM(message):
         # Message is a DM
         await message.channel.send("Not yet implemented, sorry...")
         # TODO: Probably another function to deal with any DM commands
         return True
+    elif message.author.id == constants.AUTH_BOT:
+        # Message is from WM Auth Bot
+        utils.reportBlocks(message, bot)
     else:
-        # Message is not a DM nor an embed
+        # Message isn't a non-command
         return False
 
 

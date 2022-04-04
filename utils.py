@@ -7,14 +7,17 @@ import inspect
 import io
 import mwapi
 import json
+import re
 from typing import Any, Dict, List, Optional, Set, Tuple, Union
 import time
 import urllib.parse
-from discord.ext.commands import Context, UserInputError
+import discord
+from discord.ext.commands import Context, UserInputError, Bot
 from discord import File, HTTPException, Message, Embed
 
 JSONDict = Dict[str, Any]
 AliasDictData = Dict[Union[str, Tuple[str, ...]], str]
+authRegex = r"(@.*?) authenticated as User:(.*)"
 
 
 async def isDM(message: Message) -> bool:
@@ -44,8 +47,17 @@ def getUserBlocks(username: str) -> str:
                     f"{wiki['blocked']['reason']} until {wiki['blocked']['expiry']}"
                 ]
             )
-            return blocks
+    return blocks
 
+
+def reportBlocks(message: Message, bot: Bot) -> str:
+    authMatch = re.findall(authRegex, message.content)
+    if authMatch:
+        discordUser = authMatch[0][0]
+        wikiUser = authMatch[0][1]
+        userBlocks = getUserBlocks(wikiUser)
+        if userBlocks:
+            bot.admin_channel.send('test')
 
 class AliasDict(Dict[str, str]):
     """Create dicts for values that take many aliases (keys).
